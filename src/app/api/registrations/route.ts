@@ -4,6 +4,8 @@ import Registration from '@/lib/models/Registration';
 import Event from '@/lib/models/Event';
 import { getAllRegistrations, getRegistrationStatistics, getAllEventsWithRegistrations } from '@/lib/mockDatabase';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     // Try MongoDB first
