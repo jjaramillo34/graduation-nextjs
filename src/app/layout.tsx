@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en-US">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>
         <Toaster richColors position="top-center" />
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
