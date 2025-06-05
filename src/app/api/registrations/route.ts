@@ -79,8 +79,6 @@ export async function GET(request: NextRequest) {
       });
 
     } catch (mongoError) {
-      console.log('MongoDB not available, using mock database:', mongoError instanceof Error ? mongoError.message : mongoError);
-      
       // Fallback to mock database
       const registrations = await getAllRegistrations();
       const statistics = await getRegistrationStatistics();
@@ -122,7 +120,6 @@ export async function GET(request: NextRequest) {
     }
 
   } catch (error) {
-    console.error('Error fetching registrations:', error);
     return NextResponse.json(
       { 
         success: false, 

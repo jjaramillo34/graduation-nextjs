@@ -62,8 +62,6 @@ export default function RegistrationForm({
     setSuccessMessage('');
 
     try {
-      console.log('Submitting registration:', data);
-
       // Check if user is already registered for this event
       const response = await fetch('/api/register', {
         method: 'POST',
@@ -91,7 +89,6 @@ export default function RegistrationForm({
       onSuccess();
       
     } catch (error) {
-      console.error('Registration error:', error);
       setErrors({ submit: 'Registration failed. Please try again.' });
     } finally {
       setIsSubmitting(false);

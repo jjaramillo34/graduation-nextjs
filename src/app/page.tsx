@@ -279,12 +279,12 @@ export default function HomePage() {
                     <div className="space-y-3">
                       <div className="flex items-center gap-2 text-sm">
                         <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>Maximum 2 people per event\n</span>
+                        <span>Maximum 2 people per event</span>
                         
                       </div>
                       <div className="flex items-center gap-2 text-sm">
                         <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>Exceptions: Unlimited Registration for P2G Graduation</span>
+                        <span className="text-blue-500">Exceptions: Unlimited Registration for P2G Graduation</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
                         <CheckCircle className="h-4 w-4 text-green-500" />

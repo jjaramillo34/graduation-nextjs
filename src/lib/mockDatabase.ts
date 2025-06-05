@@ -70,9 +70,6 @@ export async function loadEventsFromFile(): Promise<Event[]> {
     ];
     
     return eventsData;
-  } catch (error) {
-    console.error('Error loading events from file:', error);
-    return [];
   }
 }
 

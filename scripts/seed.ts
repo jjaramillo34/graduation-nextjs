@@ -7,7 +7,6 @@ async function seed() {
   try {
     // Read events directly from file
     const filePath = path.join(process.cwd(), 'public', 'data', 'events.json');
-    console.log('Reading file from:', filePath);
     
     if (!fs.existsSync(filePath)) {
       throw new Error(`Events file not found at ${filePath}`);
@@ -20,8 +19,6 @@ async function seed() {
       throw new Error('Invalid events data format');
     }
     
-    console.log(`Loaded ${data.events.length} events from file`);
-
     // Fill in default values for required fields
     const cleanedEvents = data.events.map((e: any) => ({
       ...e,
@@ -33,28 +30,19 @@ async function seed() {
     }));
 
     // Connect to MongoDB
-    console.log('Connecting to MongoDB...');
     await dbConnect();
-    console.log('Connected to MongoDB');
 
     // Clear existing events
-    console.log('Clearing existing events...');
     const deleteResult = await Event.deleteMany({});
-    console.log('Deleted existing events:', deleteResult);
 
     // Insert new events
-    console.log('Inserting new events...');
     const insertedEvents = await Event.insertMany(cleanedEvents);
-    console.log(`Inserted ${insertedEvents.length} events`);
 
     // Verify insertion
     const count = await Event.countDocuments();
-    console.log('Total events in database:', count);
 
-    console.log('Seeding completed successfully!');
     process.exit(0);
   } catch (error) {
-    console.error('Seeding error:', error);
     process.exit(1);
   }
 }

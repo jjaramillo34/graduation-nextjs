@@ -8,12 +8,10 @@ import { registrationSchema } from '@/lib/validations';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    console.log('Received registration request payload:', body);
 
     // Validate input data
     const validationResult = registrationSchema.safeParse(body);
     if (!validationResult.success) {
-      console.log('Validation errors:', validationResult.error);
       return NextResponse.json(
         { 
           success: false, 
@@ -25,17 +23,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { eventId, email, name } = validationResult.data;
-    console.log('Validated registration data:', { eventId, email, name });
 
     // Try MongoDB first
     try {
       await dbConnect();
-      console.log('Connected to MongoDB');
 
       // Check if event exists
       const event = await Event.findOne({ id: eventId });
       if (!event) {
-        console.log('Event not found:', eventId);
         return NextResponse.json(
           { 
             success: false, 
@@ -53,7 +48,6 @@ export async function POST(request: NextRequest) {
       });
 
       if (existingRegistration) {
-        console.log('User already registered:', email);
         return NextResponse.json(
           { 
             success: false, 
@@ -69,7 +63,6 @@ export async function POST(request: NextRequest) {
       if (!unlimitedEventIds.includes(eventId)) {
         const registrationCount = await Registration.countDocuments({ eventId });
         if (registrationCount >= 2) {
-          console.log('Event is full:', eventId);
           return NextResponse.json(
             { 
               success: false, 
@@ -90,7 +83,6 @@ export async function POST(request: NextRequest) {
       });
 
       await registration.save();
-      console.log('Registration saved to MongoDB:', registration);
 
       return NextResponse.json({
         success: true,
@@ -106,11 +98,9 @@ export async function POST(request: NextRequest) {
       });
 
     } catch (mongoError) {
-      console.error('MongoDB error:', mongoError);
       throw mongoError;
     }
   } catch (error) {
-    console.error('Registration error:', error);
     return NextResponse.json(
       { 
         success: false, 
