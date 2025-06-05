@@ -75,7 +75,7 @@ export default function EventCard({ event, onRegister }: EventCardProps) {
           <Button 
             onClick={() => onRegister(event.id)}
             disabled={isFullyBooked}
-            className="w-full"
+            className="w-full relative z-10"
             variant={isFullyBooked ? "secondary" : "default"}
           >
             {isFullyBooked ? "Event Full" : "Register Now"}
