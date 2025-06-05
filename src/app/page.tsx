@@ -94,22 +94,22 @@ export default function HomePage() {
       {/* Header */}
       <header className="graduation-gradient text-white py-16">
         <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center gap-6 mb-6">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-6">
             <img 
               src="/d79-logo.png" 
               alt="District 79 Logo" 
-              className="h-16 w-auto"
+              className="h-16 w-auto mb-4 md:mb-0"
             />
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col md:flex-row items-center gap-3">
               <GraduationCap className="h-12 w-12" />
               <h1 className="text-4xl md:text-5xl font-bold">
-                NYC Schools Graduation Registration
+                D79 Graduation Signup
               </h1>
             </div>
           </div>
           <p className="text-xl text-blue-100 max-w-3xl mx-auto">
             Register for District 79 graduation ceremonies. Limited to 2 participants per event.
-            Only @schools.nyc.gov email addresses are accepted.
+            Only @schools.nyc.gov email addresses are accepted. Exceptions: Unlimited Registration for P2G Graduation
           </p>
         </div>
       </header>
