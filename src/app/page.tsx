@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React, { useState, useEffect } from 'react';
 import { EventWithRegistrations } from '@/types';
 import EventCard from '@/components/EventCard';
