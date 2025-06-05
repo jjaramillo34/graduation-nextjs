@@ -78,6 +78,25 @@ export default function HomePage() {
   const fullEvents = events.filter(event => event.registrationCount >= 2).length;
   const totalRegistrations = events.reduce((sum, event) => sum + event.registrationCount, 0);
 
+  // Modal component
+  function Modal({ open, onClose, children }: { open: boolean; onClose: () => void; children: React.ReactNode }) {
+    if (!open) return null;
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="bg-white rounded-lg shadow-lg max-w-md w-full mx-4 relative animate-fade-in">
+          <button
+            onClick={onClose}
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-2xl font-bold"
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div className="p-4">{children}</div>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -246,77 +265,66 @@ export default function HomePage() {
             )}
           </div>
 
-          {/* Registration Form */}
-          <div className="lg:col-span-1">
-            <div className="sticky top-8">
-              {showRegistrationForm ? (
-                <div className="space-y-4">
-                  <Button 
-                    onClick={() => {
-                      setShowRegistrationForm(false);
-                      setSelectedEventId(undefined);
-                    }}
-                    variant="outline"
-                    size="sm"
-                  >
-                    ← Back to Events
-                  </Button>
-                  <RegistrationForm
-                    events={events}
-                    selectedEventId={selectedEventId}
-                    onSuccess={handleRegistrationSuccess}
-                  />
-                </div>
-              ) : (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Users className="h-5 w-5" />
-                      Registration Information
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>Maximum 2 people per event</span>
-                        
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span className="text-blue-500">Exceptions: Unlimited Registration for P2G Graduation</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>Only @schools.nyc.gov emails</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>Instant confirmation</span>
-                      </div>
-                    </div>
-                    
-                    <div className="pt-4 border-t">
-                      <p className="text-sm text-gray-600 mb-4">
-                        Click &quot;Register Now&quot; on any available event to begin registration.
-                      </p>
+          {/* Registration Form Modal */}
+          <Modal open={showRegistrationForm} onClose={() => { setShowRegistrationForm(false); setSelectedEventId(undefined); }}>
+            <RegistrationForm
+              events={events}
+              selectedEventId={selectedEventId}
+              onSuccess={handleRegistrationSuccess}
+            />
+          </Modal>
+
+          {/* Registration Info Card (when modal is closed) */}
+          {!showRegistrationForm && (
+            <div className="lg:col-span-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="h-5 w-5" />
+                    Registration Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>Maximum 2 people per event</span>
                       
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span>Available Events:</span>
-                          <Badge variant="success">{availableEvents}</Badge>
-                        </div>
-                        <div className="flex items-center justify-between text-sm">
-                          <span>Full Events:</span>
-                          <Badge variant="destructive">{fullEvents}</Badge>
-                        </div>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span className="text-blue-500">Exceptions: Unlimited Registration for P2G Graduation</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>Only @schools.nyc.gov emails</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>Instant confirmation</span>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t">
+                    <p className="text-sm text-gray-600 mb-4">
+                      Click &quot;Register Now&quot; on any available event to begin registration.
+                    </p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Available Events:</span>
+                        <Badge variant="success">{availableEvents}</Badge>
+                      </div>
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Full Events:</span>
+                        <Badge variant="destructive">{fullEvents}</Badge>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              )}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
