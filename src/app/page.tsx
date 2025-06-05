@@ -80,6 +80,9 @@ export default function HomePage() {
   const fullEvents = events.filter(event => event.registrationCount >= 2).length;
   const totalRegistrations = events.reduce((sum, event) => sum + event.registrationCount, 0);
 
+  // Debug log before rendering
+  console.log('[Frontend] events state:', events, 'loading:', loading, 'error:', error);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
