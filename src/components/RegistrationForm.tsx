@@ -11,6 +11,7 @@ import { Select } from '@/components/ui/select';
 import { EventWithRegistrations, RegistrationFormData } from '@/types';
 import { registrationSchema } from '@/lib/validations';
 import { UserPlus, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 interface RegistrationFormProps {
   events: EventWithRegistrations[];
@@ -80,6 +81,12 @@ export default function RegistrationForm({
       }
 
       setSuccessMessage('Registration successful! Your registration has been saved.');
+      const registeredEvent = events.find(event => event.id === data.eventId);
+      toast.success('Registration successful!', {
+        description: registeredEvent
+          ? `You are registered for: ${registeredEvent.title} (${registeredEvent.date} at ${registeredEvent.time})`
+          : 'You are registered for the selected event.'
+      });
       reset();
       onSuccess();
       

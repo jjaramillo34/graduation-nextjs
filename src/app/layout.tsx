@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Toaster } from 'sonner';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +17,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en-US">
       <body className={inter.className}>
+        <Toaster richColors position="top-center" />
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
           {children}
         </div>
