@@ -70,6 +70,8 @@ export async function loadEventsFromFile(): Promise<Event[]> {
     ];
     
     return eventsData;
+  } catch (error) {
+    return [];
   }
 }
 
