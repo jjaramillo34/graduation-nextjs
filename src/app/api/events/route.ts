@@ -8,16 +8,13 @@ import { EventWithRegistrations } from '@/types';
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
-  console.log('[API] /api/events called');
   try {
     // Try MongoDB first
     try {
       await dbConnect();
-      console.log('[API] MongoDB connected');
 
       // Fetch all events
       const events = await Event.find({}).sort({ id: 1 }).lean();
-      console.log(`[API] Found ${events.length} events in DB`);
 
       // Get registration counts for each event
       const registrationCounts = await Registration.aggregate([
@@ -28,7 +25,6 @@ export async function GET(request: NextRequest) {
           }
         }
       ]);
-      console.log(`[API] Registration counts:`, registrationCounts);
 
       // Create a map for quick lookup
       const countMap = new Map();
@@ -53,7 +49,6 @@ export async function GET(request: NextRequest) {
         registrationCount: countMap.get(event.id) || 0,
         isFullyBooked: (countMap.get(event.id) || 0) >= 2,
       }));
-      console.log(`[API] Returning ${eventsWithRegistrations.length} events with registration counts`);
 
       return NextResponse.json({
         success: true,
@@ -61,11 +56,9 @@ export async function GET(request: NextRequest) {
         source: 'mongodb'
       });
     } catch (err) {
-      console.error('[API] MongoDB error:', err);
       throw err;
     }
   } catch (error) {
-    console.error('[API] /api/events error:', error);
     return NextResponse.json({
       success: false,
       message: 'Failed to load events',

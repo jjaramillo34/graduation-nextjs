@@ -32,20 +32,16 @@ export default function HomePage() {
     try {
       setLoading(true);
       setError(null);
-      console.log('[Frontend] fetchEvents called');
       // Fetch events with registration counts from MongoDB
       const response = await fetch('/api/events');
       const data = await response.json();
-      console.log('[Frontend] /api/events response:', data);
       if (data.success && Array.isArray(data.events)) {
         setEvents(data.events);
       } else {
         setError('Invalid events data format');
-        console.error('[Frontend] Invalid events data format:', data);
       }
     } catch (err) {
       setError('Failed to load events from server');
-      console.error('[Frontend] fetchEvents error:', err);
     } finally {
       setLoading(false);
     }
@@ -81,9 +77,6 @@ export default function HomePage() {
   const availableEvents = events.filter(event => event.registrationCount < 2).length;
   const fullEvents = events.filter(event => event.registrationCount >= 2).length;
   const totalRegistrations = events.reduce((sum, event) => sum + event.registrationCount, 0);
-
-  // Debug log before rendering
-  console.log('[Frontend] events state:', events, 'loading:', loading, 'error:', error);
 
   if (loading) {
     return (
