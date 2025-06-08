@@ -95,7 +95,10 @@ export default function RegistrationForm({
     }
   };
 
-  const availableEvents = events.filter(event => event.registrationCount < 2);
+  // P2G event ids
+  const unlimitedEventIds = [14, 15];
+  // Available events: unlimited for P2G, <2 for others
+  const availableEvents = events.filter(event => unlimitedEventIds.includes(event.id) || event.registrationCount < 2);
 
   return (
     <Card className="w-full max-w-md mx-auto">
@@ -162,7 +165,11 @@ export default function RegistrationForm({
               {availableEvents.map((event) => (
                 <option key={event.id} value={event.id}>
                   School {event.school_number} - {event.date} at {event.time}
-                  {event.registrationCount > 0 && ` (${2 - event.registrationCount} spots left)`}
+                  {unlimitedEventIds.includes(event.id)
+                    ? ' (Unlimited spots)'
+                    : event.registrationCount > 0
+                      ? ` (${2 - event.registrationCount} spots left)`
+                      : ''}
                 </option>
               ))}
             </Select>
