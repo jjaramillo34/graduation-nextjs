@@ -12,18 +12,18 @@
   "dependencies": {
     "@hookform/resolvers": "^3.7.0",
     "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.5",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "16.0.10",
     "lucide-react": "^0.400.0",
     "mongoose": "^8.5.1",
-    "next": "14.2.5",
+    "next": "16.0.10",
     "postcss": "^8.4.39",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "react-hook-form": "^7.52.1",
     "sonner": "^2.0.5",
     "tailwind-merge": "^2.3.0",
@@ -34,5 +34,9 @@
   "packageManager": "pnpm@10.11.1+sha512.e519b9f7639869dc8d5c3c5dfef73b3f091094b0a006d7317353c72b124e80e1afd429732e28705ad6bfa1ee879c1fce46c128ccebd3192101f43dd67c667912",
   "devDependencies": {
     "ts-node": "^10.9.2"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }
